@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 public class UserModel {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String username;
 	private String surname;
@@ -22,9 +23,26 @@ public class UserModel {
 	private String role;
 	private String pass;
 	private String email;
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="groupid", referencedColumnName="id")
+	
+	@ManyToOne
+	@JoinColumn
 	private GroupModel groupmodel;
+	
+	public UserModel()
+	{
+		
+	}
+	
+	public UserModel(String username,String surname,String nickname,String role,String pass,String email,GroupModel groupModel)
+	{
+		this.username=username;
+		this.surname=surname;
+		this.nickname= nickname;
+		this.role=role;
+		this.pass=pass;
+		this.email=email;
+		this.groupmodel=groupModel;
+	}
 	public Integer getId() {
 		return id;
 	}
